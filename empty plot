@@ -1,0 +1,12 @@
+# Draw an empty plot
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+title(main = "Empty Plot")
+
+# Draw an empty plot with specified axes limits
+plot.new()
+plot.window(xlim = c(-10, 10), ylim = c(-5, 5))
+axis(1)  # Add x-axis
+axis(2)  # Add y-axis
+box()    # Add box around the plot
+title(main = "Empty Plot with Specified Axes Limits")
