@@ -1,0 +1,58 @@
+# Load necessary packages
+library(datasets)
+library(caret)
+library(e1071)
+
+# Load the Iris dataset
+data("iris")
+
+# Set a seed for reproducibility
+set.seed(123)
+
+# Split the dataset
+sample_indices <- createDataPartition(iris$Species, p = 0.8, list = FALSE)
+train_data <- iris[sample_indices, ]
+test_data <- iris[-sample_indices, ]
+
+# Create the logistic regression model
+model <- glm(Species ~ Petal.Width + Petal.Length, data = train_data, family = binomial)
+summary(model)
+
+# Predict probabilities for the test data
+predicted_prob <- predict(model, newdata = test_data, type = "response")
+
+# Convert probabilities to class labels
+predicted_class <- factor(ifelse(predicted_prob > 0.5, "virginica", "versicolor"), levels = levels(test_data$Species))
+
+# Create confusion matrix
+conf_matrix <- confusionMatrix(predicted_class, test_data$Species)
+print(conf_matrix)
+
+# Given values
+values <- c(90, 50, 70, 80, 70, 60, 20, 30, 80, 90, 20)
+
+# Mean
+mean_value <- mean(values)
+cat("Mean:", mean_value, "\n")
+
+# Median
+median_value <- median(values)
+cat("Median:", median_value, "\n")
+
+# Mode function
+get_mode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+# Mode
+mode_value <- get_mode(values)
+cat("Mode:", mode_value, "\n")
+
+# 2nd highest value
+second_highest <- sort(values, decreasing = TRUE)[2]
+cat("2nd Highest Value:", second_highest, "\n")
+
+# 3rd lowest value
+third_lowest <- sort(values)[3]
+cat("3rd Lowest Value:", third_lowest, "\n")
