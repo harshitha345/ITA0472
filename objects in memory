@@ -1,0 +1,13 @@
+get_memory_details <- function() {
+  objects <- ls(envir = .GlobalEnv)  
+  details <- sapply(objects, function(x) {
+    obj <- get(x, envir = .GlobalEnv) 
+    type <- typeof(obj)  
+    size <- format(object.size(obj), units = "auto")  # Get the size of the object
+    list(Type = type, Size = size)
+  }, simplify = FALSE)
+details_df <- do.call(rbind, lapply(details, as.data.frame))
+  rownames(details_df) <- objects
+  return(details_df)
+}
+print(get_memory_details())
