@@ -1,0 +1,7 @@
+name<-readline(prompt="enter:")
+enter:hARSHITHA
+> age<-readline(prompt="enter:")
+enter:20
+> print(paste(name,"/n"))
+> print(paste(age,"/n"))
+> cat(R.version.string)
