@@ -1,0 +1,38 @@
+# Load necessary packages
+library(datasets)
+library(ggplot2)
+
+# Load the airquality dataset
+data("airquality")
+
+# Check for missing values
+missing_values <- colSums(is.na(airquality))
+print(missing_values)
+
+# Calculate the percentage of missing values
+total_rows <- nrow(airquality)
+missing_percentage <- (missing_values / total_rows) * 100
+print(missing_percentage)
+
+# Handle missing values
+for (col in names(airquality)) {
+  if (missing_percentage[col] < 10) {
+    airquality <- airquality[!is.na(airquality[[col]]), ]
+  } else {
+    airquality[[col]][is.na(airquality[[col]])] <- mean(airquality[[col]], na.rm = TRUE)
+  }
+}
+
+# Check if there are any remaining missing values
+print(colSums(is.na(airquality)))
+
+# Apply linear regression on "Ozone" and "Solar.R"
+model <- lm(Ozone ~ Solar.R, data = airquality)
+summary(model)
+
+# Create scatter plot between Ozone and Solar.R and add regression line
+ggplot(airquality, aes(x = Solar.R, y = Ozone)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Scatter Plot of Ozone vs Solar.R with Regression Line", x = "Solar Radiation (Langley)", y = "Ozone (ppb)") +
+  theme_minimal()
