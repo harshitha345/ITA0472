@@ -1,0 +1,41 @@
+# Load the required package
+library(datasets)
+
+# Convert the Titanic dataset to a data frame
+titanic_df <- as.data.frame(Titanic)
+
+# Print the first few rows of the dataset to understand its structure
+head(titanic_df)
+# Draw a bar chart for Survived based on Class
+library(ggplot2)
+
+# Summarize the data by Class and Survived
+survived_by_class <- aggregate(Freq ~ Class + Survived, data = titanic_df, sum)
+
+# Create the bar plot
+ggplot(survived_by_class, aes(x = Class, y = Freq, fill = Survived)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Survival on the Titanic by Passenger Class", x = "Passenger Class", y = "Frequency") +
+  scale_fill_manual(values = c("No" = "red", "Yes" = "green"))
+# Summarize the data by Class, Survived, and Sex
+survived_by_class_gender <- aggregate(Freq ~ Class + Survived + Sex, data = titanic_df, sum)
+
+# Create the bar plot
+ggplot(survived_by_class_gender, aes(x = Class, y = Freq, fill = Survived)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Sex) +
+  labs(title = "Survival on the Titanic by Passenger Class and Gender", x = "Passenger Class", y = "Frequency") +
+  scale_fill_manual(values = c("No" = "red", "Yes" = "green"))
+# Load the Titanic dataset from the 'titanic' package which has individual records
+if (!require(titanic)) {
+  install.packages("titanic")
+  library(titanic)
+}
+
+# Load the Titanic dataset with individual records
+titanic_train <- titanic::titanic_train
+
+# Draw a histogram for the Age feature
+ggplot(titanic_train, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Age on the Titanic", x = "Age", y = "Frequency")
