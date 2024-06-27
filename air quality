@@ -1,0 +1,11 @@
+data("airquality")
+is_data_frame <- is.data.frame(airquality)
+cat("Is airquality a data frame?", is_data_frame, "\n")
+cat("First few rows of the airquality dataset:\n")
+print(head(airquality))
+ordered_airquality <- airquality[order(airquality$Ozone, airquality$Solar.R), ]
+cat("First few rows of the ordered airquality dataset:\n")
+print(head(ordered_airquality))
+reduced_airquality <- ordered_airquality[, !(names(ordered_airquality) %in% c("Solar.R", "Wind"))]
+cat("First few rows of the airquality dataset after removing 'Solar.R' and 'Wind':\n")
+print(head(reduced_airquality))
