@@ -1,0 +1,4 @@
+A=-51
+B=50
+X=sample(A:B,10)
+print(X)
