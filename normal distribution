@@ -1,0 +1,8 @@
+set.seed(123)
+n <- 1000
+random_numbers <- rnorm(n, mean = 0, sd = 1)
+rounded_numbers <- round(random_numbers, 2)
+occurrences <- table(rounded_numbers)
+occurrences_df <- as.data.frame(occurrences)
+colnames(occurrences_df) <- c("Value", "Count")
+print(occurrences_df)
