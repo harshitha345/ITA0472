@@ -1,0 +1,22 @@
+# Define four columns, three rows, and two tables using vectors
+vector1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+vector2 <- c(13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24)
+
+# Combine the vectors to form the data for the array
+data <- c(vector1, vector2)
+
+# Create a 4x3x2 array
+my_array <- array(data, dim = c(3, 4, 2))
+
+# Print the content of the array
+cat("The array content:\n")
+print(my_array)
+# Create a sequence of even integers greater than 50
+even_integers <- seq(52, by = 2, length.out = 15)
+
+# Create a 5x3 array using the even integers
+even_array <- array(even_integers, dim = c(5, 3))
+
+# Print the content of the array
+cat("The 5x3 array of even integers greater than 50:\n")
+print(even_array)
