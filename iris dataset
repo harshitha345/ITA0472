@@ -1,0 +1,41 @@
+data(iris)
+cat("Dimensions of the dataset:\n")
+print(dim(iris))
+
+cat("\nStructure of the dataset:\n")
+str(iris)
+
+cat("\nSummary statistics of the dataset:\n")
+print(summary(iris))
+
+cat("\nStandard deviation of all features:\n")
+sapply(iris[, -5], sd)
+cat("\nMean of features grouped by species:\n")
+aggregate(. ~ Species, data = iris, FUN = mean)
+
+cat("\nStandard deviation of features grouped by species:\n")
+aggregate(. ~ Species, data = iris, FUN = sd)
+cat("\nQuantile values of Sepal.Width:\n")
+print(quantile(iris$Sepal.Width))
+
+cat("\nQuantile values of Sepal.Length:\n")
+print(quantile(iris$Sepal.Length))
+iris1 <- iris
+iris1$Sepal.Length.Cate <- cut(iris$Sepal.Length, 
+                               breaks = quantile(iris$Sepal.Length, probs = seq(0, 1, 0.25)), 
+                               include.lowest = TRUE)
+
+cat("\nNew data frame with Sepal.Length.Cate:\n")
+head(iris1)
+cat("\nAverage value of numerical variables by Species and Sepal.Length.Cate:\n")
+aggregate(. ~ Species + Sepal.Length.Cate, data = iris1, FUN = mean)
+cat("\nAverage mean value of numerical variables by Species and Sepal.Length.Cate:\n")
+library(dplyr)
+iris1 %>%
+  group_by(Species, Sepal.Length.Cate) %>%
+  summarise(across(starts_with("Sepal"), mean, .names = "mean_{col}"),
+            across(starts_with("Petal"), mean, .names = "mean_{col}"))
+library(reshape2)
+pivot_table <- dcast(iris1, Species + Sepal.Length.Cate ~ variable, value.var = "value", fun.aggregate = mean)
+cat("\nPivot Table:\n")
+print(pivot_table)
