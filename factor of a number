@@ -1,0 +1,12 @@
+find_factors <- function(num) {
+  factors <- numeric()
+  for (i in 1:num) {
+    if (num %% i == 0) {
+      factors <- c(factors, i)
+    }
+  }
+  return(factors)
+}
+number <- 36  
+result <- find_factors(number)
+print(paste("Factors of", number, "are:", paste(result, collapse = ", ")))
