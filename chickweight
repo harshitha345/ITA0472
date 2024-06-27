@@ -1,0 +1,29 @@
+# Load the chickwts dataset
+data("ChickWeight")
+
+# Check the first few rows of the dataset
+head(ChickWeight)
+
+# Create the multiple regression model
+model <- lm(weight ~ Time + Diet, data = ChickWeight)
+
+# Summarize the model
+summary(model)
+# Predict weight for Time = 10 and Diet = 1
+new_data <- data.frame(Time = 10, Diet = factor(1, levels = levels(ChickWeight$Diet)))
+
+# Make the prediction
+predicted_weight <- predict(model, newdata = new_data)
+
+# Print the predicted weight
+cat("Predicted weight for Time = 10 and Diet = 1:", predicted_weight, "\n")
+# Calculate the residuals
+residuals <- ChickWeight$weight - predict(model, newdata = ChickWeight)
+
+# Calculate Mean Squared Error (MSE)
+mse <- mean(residuals^2)
+cat("Mean Squared Error (MSE):", mse, "\n")
+
+# Calculate Root Mean Squared Error (RMSE)
+rmse <- sqrt(mse)
+cat("Root Mean Squared Error (RMSE):", rmse, "\n")
