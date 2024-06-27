@@ -1,0 +1,8 @@
+lowercase_letters <- letters
+uppercase_letters <- LETTERS
+first_10_lowercase <- lowercase_letters[1:10]
+print(first_10_lowercase)
+last_10_uppercase <- uppercase_letters[17:26]
+print(last_10_uppercase)
+letters_22_to_24_uppercase <- uppercase_letters[22:24]
+print(letters_22_to_24_uppercase)
