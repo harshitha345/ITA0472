@@ -1,0 +1,16 @@
+# Step 1: Load the built-in dataset 'women'
+data("women")
+
+# Step 2: Create a factor for height
+# Define the breaks for categorizing height
+breaks <- c(50, 60, 70)
+
+# Create a factor based on height categories
+height_factor <- cut(women$height, breaks = breaks, labels = c("Short", "Medium", "Tall"), include.lowest = TRUE)
+
+# Print the original dataset and the created factor
+cat("Original dataset 'women':\n")
+print(head(women))
+
+cat("\nFactor corresponding to height:\n")
+print(height_factor)
